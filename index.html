@@ -1055,7 +1055,7 @@ function renderFooter(){
 function renderLoveSection(sectionId, targetName, authorName, items, fotoSrc){
   const root = document.getElementById(sectionId);
   root.querySelector(".love-section__eyebrow").textContent = `Ditulis oleh ${authorName}`;
-  root.querySelector(".love-section__title").textContent = `Things I Love 'bout ${targetName}!`;
+  root.querySelector(".love-section__title").textContent = `Things I Love about ${targetName}!`;
 
   const ring = root.querySelector(".love-collage__ring");
   ring.appendChild(buildPhotoFrame(fotoSrc, targetName, { icon:"📸", label:"Foto kalian" }));
