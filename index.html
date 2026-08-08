@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perjalanan Kita — 2 Tahun</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   1. RESET & DESIGN TOKENS
+   ============================================================ */
+:root{
+  --cream:        #FFF8F3;
+  --paper:        #FFFDFB;
+  --blush:        #F7D9E3;
+  --blush-deep:   #F0BFD2;
+  --rosewood:     #6B2C39;
+  --rosewood-soft:#8C4A57;
+  --rosewood-dark:#3E1720;
+  --petal:        #FF8FA3;
+  --lilac:        #D9C6E8;
+  --gold:         #E8A87C;
+  --gold-light:   #F4CFA8;
+
+  --font-script:  'Caveat', cursive;
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body:    'Nunito', sans-serif;
+  --font-pixel:   'Press Start 2P', cursive;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 10px;
+  --shadow-soft: 0 20px 45px -20px rgba(107,44,57,0.28);
+  --shadow-pop:  0 10px 25px -8px rgba(107,44,57,0.35);
+  --ease: cubic-bezier(.22,.9,.35,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--rosewood);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+h1,h2,h3,p,ul{ margin:0; }
+ul{ padding:0; list-style:none; }
+a{ color:inherit; }
+:focus-visible{ outline:3px solid var(--gold); outline-offset:3px; border-radius:4px; }
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+.section-eyebrow{
+  font-family:var(--font-heading);
+  font-weight:600;
+  font-size:.8rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--petal);
+  text-align:center;
+  display:block;
+  margin-bottom:.6rem;
+}
+.section-eyebrow--light{ color:var(--gold-light); }
+.section-title{
+  font-family:var(--font-script);
+  font-weight:600;
+  font-size:clamp(2rem, 5vw, 3rem);
+  text-align:center;
+  color:var(--rosewood);
+  margin-bottom:2.5rem;
+}
+.section-title--light{ color:var(--paper); }
+
+section, footer{ padding:5rem 1.5rem; position:relative; }
+
+/* scroll reveal */
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+/* ============================================================
+   2. FLOATING HEARTS / PETALS
+   ============================================================ */
+.floating-hearts{
+  position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:5;
+}
+.floating-heart{
+  position:absolute;
+  bottom:-10vh;
+  opacity:0;
+  animation:floatUp var(--duration,8s) ease-in forwards;
+  will-change:transform, opacity;
+}
+@keyframes floatUp{
+  0%   { transform:translate(0,0) rotate(0deg);   opacity:0; }
+  10%  { opacity:.9; }
+  85%  { opacity:.8; }
+  100% { transform:translate(var(--drift,0px), -115vh) rotate(25deg); opacity:0; }
+}
+
+/* ============================================================
+   3. GATE (HALAMAN PEMBUKA)
+   ============================================================ */
+.gate{
+  position:fixed; inset:0; z-index:100;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:2rem;
+  background:radial-gradient(circle at 50% 20%, var(--blush) 0%, var(--cream) 65%);
+  overflow-y:auto;
+  transition:opacity .9s var(--ease), visibility .9s var(--ease);
+}
+.gate--leaving{ opacity:0; visibility:hidden; pointer-events:none; }
+.gate__decor{
+  font-size:2.6rem;
+  animation:bob 3.4s ease-in-out infinite;
+  margin-bottom:.5rem;
+}
+@keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-12px);} }
+.gate__eyebrow{
+  font-family:var(--font-heading); font-weight:600; font-size:.85rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--rosewood-soft);
+  margin-bottom:.75rem;
+}
+.gate__title{
+  font-family:var(--font-script); font-weight:700;
+  font-size:clamp(2.6rem, 9vw, 4.5rem);
+  line-height:1.05; color:var(--rosewood);
+}
+.gate__sub{
+  margin-top:1.1rem; font-size:1.05rem; color:var(--rosewood-soft);
+  max-width:32ch;
+}
+.gate__btn{
+  margin-top:2.5rem;
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:var(--petal); color:#fff;
+  font-family:var(--font-heading); font-weight:600; font-size:1rem;
+  padding:1rem 2rem; border-radius:999px;
+  box-shadow:var(--shadow-pop);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.gate__btn:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 16px 30px -10px rgba(107,44,57,.45); }
+.gate__btn-heart{ display:inline-block; animation:pulseHeart 1.6s ease-in-out infinite; }
+@keyframes pulseHeart{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.18);} }
+
+/* ============================================================
+   4. MAIN WRAPPER / MUSIC TOGGLE
+   ============================================================ */
+.main{ opacity:0; }
+.main--visible{ opacity:1; transition:opacity 1.1s var(--ease); }
+
+.music-toggle{
+  position:fixed; top:1.25rem; right:1.25rem; z-index:40;
+  width:52px; height:52px; border-radius:50%;
+  background:var(--paper); box-shadow:var(--shadow-pop);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem;
+}
+.music-toggle span{ display:inline-block; }
+.music-toggle.is-playing span{ animation:noteSpin 3.2s linear infinite; }
+@keyframes noteSpin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+
+/* ============================================================
+   5. HERO
+   ============================================================ */
+.hero{
+  min-height:100vh; min-height:100dvh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:6rem 1.5rem 4rem;
+  background:linear-gradient(180deg, var(--blush) 0%, var(--cream) 78%);
+}
+.hero__eyebrow{
+  font-family:var(--font-heading); font-weight:600; font-size:.9rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--petal);
+  margin-bottom:.9rem;
+}
+.hero__names{
+  font-family:var(--font-script); font-weight:700;
+  font-size:clamp(2.6rem, 10vw, 5rem);
+  color:var(--rosewood); line-height:1.05;
+}
+.hero__since{
+  margin-top:.9rem; font-size:1.05rem; color:var(--rosewood-soft);
+}
+.counter{
+  margin-top:2.75rem;
+  display:grid; grid-template-columns:repeat(6, minmax(52px,72px));
+  gap:.6rem 0.55rem;
+}
+.counter__box{
+  background:var(--paper);
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-soft);
+  padding:.7rem .3rem .6rem;
+  display:flex; flex-direction:column; align-items:center;
+}
+.counter__box span{
+  font-family:var(--font-heading); font-weight:700;
+  font-size:clamp(1.15rem, 3.4vw, 1.6rem);
+  color:var(--rosewood);
+  font-variant-numeric:tabular-nums;
+}
+.counter__box label{
+  font-size:.62rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--rosewood-soft); margin-top:.25rem;
+}
+.hero__total{
+  margin-top:1.6rem; font-size:.95rem; color:var(--rosewood-soft); max-width:38ch;
+}
+.hero__scroll{
+  margin-top:3rem; font-size:1.4rem; color:var(--petal);
+  animation:bob 2.2s ease-in-out infinite;
+}
+
+/* ============================================================
+   6. TIMELINE
+   ============================================================ */
+.timeline-section{ background:var(--cream); }
+.timeline{ position:relative; max-width:820px; margin:0 auto; }
+.timeline::before{
+  content:""; position:absolute; left:50%; top:0; bottom:0; width:3px;
+  transform:translateX(-50%);
+  background:linear-gradient(var(--blush-deep), var(--lilac));
+  border-radius:3px;
+}
+.timeline__item{
+  display:grid; grid-template-columns:1fr 48px 1fr;
+  align-items:start; margin-bottom:2.75rem;
+}
+.timeline__item:last-child{ margin-bottom:0; }
+.timeline__content{
+  grid-column:1; text-align:right; padding-right:1.75rem;
+}
+.timeline__item:nth-child(even) .timeline__content{
+  grid-column:3; text-align:left; padding-right:0; padding-left:1.75rem;
+}
+.timeline__dot-col{ grid-column:2; display:flex; justify-content:center; padding-top:.3rem; }
+.timeline__dot{
+  width:16px; height:16px; border-radius:50%;
+  background:var(--petal); box-shadow:0 0 0 5px var(--cream), 0 0 0 6px var(--blush-deep);
+}
+.timeline__date{
+  font-family:var(--font-heading); font-weight:600; font-size:.8rem;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--gold);
+}
+.timeline__title{
+  font-family:var(--font-script); font-weight:700; font-size:1.65rem;
+  color:var(--rosewood); margin-top:.2rem;
+}
+.timeline__text{
+  margin-top:.5rem; font-size:.98rem; line-height:1.6; color:var(--rosewood-soft);
+}
+.timeline__photo{
+  margin-top:.85rem; aspect-ratio:4/3; width:100%; max-width:280px;
+  border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-soft);
+}
+.timeline__item:nth-child(odd) .timeline__photo{ margin-left:auto; }
+.timeline__item:nth-child(even) .timeline__photo{ margin-right:auto; }
+
+/* ============================================================
+   7. GALLERY (POLAROID + WASHI TAPE)
+   ============================================================ */
+.gallery-section{ background:var(--blush); }
+#gallery-section .section-title{ margin-bottom:.7rem; }
+.gallery-hint{
+  text-align:center; font-size:.9rem; color:var(--rosewood-soft);
+  margin-bottom:3rem;
+}
+.gallery{
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:3.2rem 2.2rem;
+}
+@media (max-width:820px){
+  .gallery{ grid-template-columns:repeat(2, 1fr); gap:2.6rem 1.6rem; }
+}
+@media (max-width:520px){
+  .gallery{ grid-template-columns:1fr; max-width:300px; gap:2.6rem; }
+}
+.polaroid{
+  --tape-r:-4deg;
+  position:relative;
+  background:#fff; padding:14px 14px 38px; border-radius:6px;
+  box-shadow:var(--shadow-soft);
+  transition:transform .35s var(--ease);
+  cursor:pointer;
+}
+.polaroid:hover{ transform:translateY(-6px) scale(1.045); }
+.polaroid::before{
+  content:""; position:absolute; top:-13px; left:50%; z-index:1;
+  width:72px; height:24px; transform:translateX(-50%) rotate(var(--tape-r));
+  background:repeating-linear-gradient(45deg, var(--gold) 0 8px, var(--gold-light) 8px 16px);
+  opacity:.85; border-radius:2px; box-shadow:0 3px 5px rgba(62,23,32,.18);
+}
+.polaroid:nth-child(2n){ --tape-r:3deg; }
+.polaroid:nth-child(3n){ --tape-r:-3deg; }
+.polaroid:nth-child(4n){ --tape-r:5deg; }
+.polaroid:nth-child(5n){ --tape-r:-5deg; }
+.polaroid .photo-frame{ aspect-ratio:1/1; height:auto; }
+.polaroid figcaption{
+  font-family:var(--font-script); font-size:1.15rem; text-align:center;
+  padding-top:.6rem; color:var(--rosewood-soft);
+}
+
+/* ============================================================
+   8. PHOTO FRAME + PLACEHOLDER (dipakai gallery, timeline, modal)
+   ============================================================ */
+.photo-frame{ position:relative; width:100%; height:100%; background:var(--blush); overflow:hidden; }
+.photo-frame img{ width:100%; height:100%; object-fit:cover; }
+.photo-placeholder{
+  position:absolute; inset:0; display:none; flex-direction:column; gap:.65rem;
+  align-items:center; justify-content:center; text-align:center;
+  background:linear-gradient(160deg, var(--blush), var(--lilac));
+  color:var(--rosewood-soft); padding:.5rem;
+}
+.polaroid .photo-placeholder{ background:var(--blush); }
+.photo-placeholder__icon{
+  width:66px; height:66px; border-radius:50%;
+  background:rgba(255,255,255,.65);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.8rem;
+}
+.photo-placeholder__label{
+  font-size:.85rem; font-family:var(--font-heading); font-weight:600;
+  line-height:1.3; max-width:16ch; color:var(--petal);
+}
+
+/* ============================================================
+   9. SURAT CINTA
+   ============================================================ */
+.letter-section{ background:var(--cream); }
+.letter{
+  max-width:640px; margin:0 auto; background:var(--paper);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-soft);
+  padding:clamp(2rem,5vw,3.5rem); position:relative;
+}
+.letter::before{
+  content:"💌"; position:absolute; top:-26px; left:50%; transform:translateX(-50%);
+  font-size:2.2rem; background:var(--cream); width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-soft);
+}
+.letter__title{
+  font-family:var(--font-script); font-weight:700; font-size:clamp(1.8rem,4vw,2.4rem);
+  text-align:center; margin-bottom:1.5rem; margin-top:.5rem;
+}
+.letter__body p{
+  font-family:var(--font-script); font-size:1.35rem; line-height:1.55;
+  color:var(--rosewood-soft); margin-bottom:1rem;
+}
+.letter__closing{ margin-top:1.5rem; font-family:var(--font-script); font-size:1.35rem; color:var(--rosewood-soft); }
+.letter__sign{
+  margin-top:.3rem; font-family:var(--font-heading); font-weight:600; color:var(--rosewood);
+}
+
+/* ============================================================
+   9B. THINGS I LOVE 'BOUT — tag mengelilingi foto (atas/bawah/kiri/kanan)
+   ============================================================ */
+.love-section{ background:var(--cream); }
+#love-pacar-section{ background:var(--blush); }
+.love-section .section-title{ margin-bottom:.5rem; }
+.love-collage{ max-width:1080px; margin:0 auto; }
+
+/* baris kecil di atas & bawah foto */
+.love-collage__accent{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:1.2rem;
+  max-height:0; opacity:0; overflow:hidden;
+  transition:max-height .6s var(--ease), opacity .5s var(--ease), margin .6s var(--ease);
+}
+.love-collage.is-open .love-collage__accent{ max-height:220px; opacity:1; }
+.love-collage.is-open .love-collage__accent--top{ margin-bottom:1.4rem; }
+.love-collage.is-open .love-collage__accent--bottom{ margin-top:1.4rem; }
+.love-collage__accent .love-tag:nth-child(1){ --r:-4deg; }
+.love-collage__accent .love-tag:nth-child(2){ --r:3deg; margin-top:18px; }
+.love-collage__accent .love-tag{ width:auto; max-width:220px; display:inline-block; }
+
+/* baris tengah: kolom kiri — foto — kolom kanan */
+.love-collage__row{
+  display:grid;
+  grid-template-columns:auto auto auto;
+  grid-template-areas:"left photo right";
+  align-items:center; justify-content:center;
+  gap:1.2rem;
+}
+.love-collage__trigger{
+  grid-area:photo; position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:1rem;
+  transition:transform .4s var(--ease);
+}
+.love-collage__trigger:hover{ transform:scale(1.04); }
+.love-collage.is-open .love-collage__trigger{ transform:scale(1.05); }
+.love-collage__ring{
+  display:block; width:210px; height:210px; border-radius:50%; flex:none;
+  background:#fff; padding:12px; box-shadow:var(--shadow-pop);
+  rotate:-3deg;
+}
+.love-collage__ring .photo-frame{ width:100%; height:100%; border-radius:50%; }
+.love-collage__hint{
+  font-family:var(--font-heading); font-weight:600; font-size:.85rem;
+  color:var(--rosewood-soft); background:var(--paper); padding:.45rem .95rem;
+  border-radius:999px; box-shadow:var(--shadow-soft);
+  transition:opacity .3s var(--ease); white-space:nowrap;
+}
+.love-collage.is-open .love-collage__hint{ opacity:0; }
+
+.love-collage__flank-wrap{
+  display:grid; grid-template-columns:0fr;
+  transition:grid-template-columns .7s var(--ease);
+  min-width:0;
+}
+.love-collage__flank-wrap--left{ grid-area:left; justify-self:end; }
+.love-collage__flank-wrap--right{ grid-area:right; justify-self:start; }
+.love-collage.is-open .love-collage__flank-wrap{ grid-template-columns:1fr; }
+.love-collage__flank{
+  overflow:hidden; min-width:0; min-height:0;
+  width:360px; max-width:100%; columns:2; column-gap:.8rem;
+}
+
+/* kartu tag — sengaja sedikit acak/tidak sejajar sempurna biar berasa scrapbook */
+.love-tag{
+  display:block; width:100%; break-inside:avoid;
+  font-family:var(--font-pixel); font-size:.6rem; line-height:1.65;
+  background:var(--paper); color:var(--rosewood);
+  padding:.6rem .65rem; border-radius:4px; margin-bottom:.85rem;
+  box-shadow:0 8px 16px -8px rgba(107,44,57,.4);
+  text-align:center;
+  opacity:0; transform:scale(.55) rotate(var(--r,0deg));
+  transition:opacity .45s var(--ease), transform .45s var(--ease);
+  transition-delay:var(--delay,0s);
+}
+.love-collage.is-open .love-tag{ opacity:1; transform:scale(1) rotate(var(--r,0deg)); }
+.love-tag:nth-child(5n+1){ --r:-3deg; }
+.love-tag:nth-child(5n+2){ --r:2deg; margin-left:14px; }
+.love-tag:nth-child(5n+3){ --r:-1.5deg; margin-top:6px; }
+.love-tag:nth-child(5n+4){ --r:2.5deg; }
+.love-tag:nth-child(5n+5){ --r:-2deg; margin-left:8px; }
+
+@media (max-width:900px){
+  .love-collage__row{
+    grid-template-columns:1fr;
+    grid-template-areas:"photo" "left" "right";
+    justify-items:center; gap:0;
+  }
+  .love-collage.is-open .love-collage__row{ gap:1.2rem; }
+  .love-collage__flank-wrap{
+    grid-template-columns:1fr; grid-template-rows:0fr;
+    transition:grid-template-rows .7s var(--ease);
+    justify-self:stretch; width:100%;
+  }
+  .love-collage.is-open .love-collage__flank-wrap{ grid-template-rows:1fr; }
+  .love-collage__flank{ width:100%; max-width:380px; margin:0 auto; }
+}
+@media (max-width:420px){
+  .love-collage__flank{ columns:1; max-width:260px; }
+}
+
+/* ============================================================
+   10. RAMALAN (SIGNATURE SECTION — GELAP & HANGAT)
+   ============================================================ */
+.fortune-section{
+  background:radial-gradient(circle at 50% 0%, var(--rosewood-soft) 0%, var(--rosewood-dark) 70%);
+  text-align:center; overflow:hidden;
+}
+.fortune-section::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background:
+    radial-gradient(2px 2px at 20% 30%, var(--gold-light), transparent),
+    radial-gradient(2px 2px at 75% 55%, var(--gold-light), transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, var(--gold-light), transparent),
+    radial-gradient(1.5px 1.5px at 85% 20%, var(--gold-light), transparent),
+    radial-gradient(1.5px 1.5px at 60% 40%, var(--gold-light), transparent);
+}
+.fortune-section__sub{
+  position:relative; color:var(--blush); max-width:36ch; margin:0 auto 2.5rem;
+  font-size:1.02rem; line-height:1.6;
+}
+.fortune-btn{
+  position:relative;
+  display:inline-flex; align-items:center; gap:.65rem;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold));
+  color:var(--rosewood-dark); font-family:var(--font-heading); font-weight:700; font-size:1.05rem;
+  padding:1.05rem 2.3rem; border-radius:999px;
+  box-shadow:0 0 0 0 rgba(232,168,124,.55);
+  animation:glowPulse 2.6s ease-in-out infinite;
+  transition:transform .3s var(--ease);
+}
+.fortune-btn:hover{ transform:translateY(-3px) scale(1.03); }
+@keyframes glowPulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(232,168,124,.5); }
+  50%{ box-shadow:0 0 0 14px rgba(232,168,124,0); }
+}
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+.footer{
+  background:var(--cream); text-align:center; padding-top:5rem; padding-bottom:4rem;
+}
+.footer__msg{
+  font-family:var(--font-script); font-size:clamp(1.6rem,4vw,2.1rem);
+  color:var(--rosewood); max-width:26ch; margin:0 auto 1rem; line-height:1.35;
+}
+.footer__names{
+  font-family:var(--font-heading); font-weight:600; color:var(--rosewood-soft); font-size:.95rem;
+  letter-spacing:.04em;
+}
+
+/* ============================================================
+   12. MODAL (dipakai galeri & ramalan)
+   ============================================================ */
+.modal{
+  position:fixed; inset:0; z-index:200;
+  display:flex; align-items:center; justify-content:center;
+  padding:1.25rem;
+  opacity:0; visibility:hidden;
+  transition:opacity .35s var(--ease), visibility .35s var(--ease);
+}
+.modal--visible{ opacity:1; visibility:visible; }
+.modal__backdrop{
+  position:absolute; inset:0; background:rgba(62,23,32,.55); backdrop-filter:blur(3px);
+}
+.modal__card{
+  position:relative; width:min(92vw, 440px);
+  background:var(--paper); border-radius:var(--radius-lg);
+  box-shadow:0 30px 60px -15px rgba(0,0,0,.4);
+  padding:1.6rem 1.4rem 1.9rem;
+  transform:scale(.92) translateY(10px);
+  transition:transform .35s var(--ease);
+  max-height:90vh; overflow-y:auto;
+}
+.modal--visible .modal__card{ transform:scale(1) translateY(0); }
+.modal__close{
+  position:absolute; top:.6rem; right:.7rem; width:36px; height:36px;
+  font-size:1.4rem; line-height:1; color:var(--rosewood-soft);
+  display:flex; align-items:center; justify-content:center; border-radius:50%;
+}
+.modal__close:hover{ background:var(--blush); }
+.modal__title{
+  font-family:var(--font-script); font-weight:700; font-size:1.6rem;
+  text-align:center; color:var(--rosewood); margin-bottom:1rem;
+}
+.modal__stage{ display:flex; align-items:center; gap:.5rem; }
+.modal__frame{
+  flex:1; aspect-ratio:3/4; max-height:56vh;
+  border-radius:var(--radius-md); overflow:hidden; background:var(--blush);
+}
+.modal__frame .photo-frame img{ object-fit:contain; background:var(--paper); }
+.modal__frame .photo-placeholder{ position:absolute; }
+.modal__nav{
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+  background:var(--blush); color:var(--rosewood); font-size:1.3rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .25s var(--ease);
+}
+.modal__nav:hover{ background:var(--blush-deep); }
+.modal__caption{
+  margin-top:1rem; text-align:center; font-family:var(--font-script);
+  font-size:1.2rem; color:var(--rosewood-soft); min-height:1.6rem;
+}
+.modal__dots{ display:flex; justify-content:center; gap:.4rem; margin-top:.85rem; }
+.modal__dot{
+  width:8px; height:8px; border-radius:50%; background:var(--blush-deep); cursor:pointer;
+  transition:background .25s var(--ease), transform .25s var(--ease);
+}
+.modal__dot.is-active{ background:var(--petal); transform:scale(1.3); }
+
+/* ============================================================
+   13. RESPONSIVE
+   ============================================================ */
+@media (max-width:700px){
+  section, footer{ padding:4rem 1.15rem; }
+  .counter{ grid-template-columns:repeat(3, minmax(58px,80px)); }
+  .timeline::before{ left:18px; }
+  .timeline__item{ grid-template-columns:36px 1fr; }
+  .timeline__dot-col{ grid-column:1; }
+  .timeline__content{
+    grid-column:2 !important; text-align:left !important;
+    padding-left:1.1rem !important; padding-right:0 !important;
+  }
+  .timeline__item:nth-child(odd) .timeline__photo,
+  .timeline__item:nth-child(even) .timeline__photo{ margin-left:0; margin-right:auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+
+<!-- ============ GATE ============ -->
+<section class="gate" id="gate">
+  <div class="gate__decor" aria-hidden="true">🤍</div>
+  <p class="gate__eyebrow">Untuk seseorang yang paling berarti</p>
+  <h1 class="gate__title">Sebuah Kenangan,<br>Untuk Kita</h1>
+  <p class="gate__sub">Ada cerita dua tahun yang menunggu untuk dibuka. Siap?</p>
+  <button class="gate__btn" id="gateBtn" type="button">
+    <span>Buka Kenangan Kami</span>
+    <span class="gate__btn-heart" aria-hidden="true">💌</span>
+  </button>
+</section>
+
+<!-- ============ MAIN ============ -->
+<main class="main" id="main" hidden>
+
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Putar musik">
+    <span aria-hidden="true">🎶</span>
+  </button>
+  <audio id="bgMusic" loop preload="none">
+    <source src="assets/music/lagu.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <p class="hero__eyebrow" id="heroEyebrow">Merayakan perjalanan kami</p>
+    <h1 class="hero__names" id="heroNames"></h1>
+    <p class="hero__since" id="heroSince"></p>
+
+    <div class="counter" aria-label="Penghitung waktu bersama">
+      <div class="counter__box"><span id="cYears">00</span><label>Tahun</label></div>
+      <div class="counter__box"><span id="cMonths">00</span><label>Bulan</label></div>
+      <div class="counter__box"><span id="cDays">00</span><label>Hari</label></div>
+      <div class="counter__box"><span id="cHours">00</span><label>Jam</label></div>
+      <div class="counter__box"><span id="cMinutes">00</span><label>Menit</label></div>
+      <div class="counter__box"><span id="cSeconds">00</span><label>Detik</label></div>
+    </div>
+    <p class="hero__total" id="heroTotal"></p>
+    <div class="hero__scroll" aria-hidden="true">↓</div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section" id="timeline-section">
+    <p class="section-eyebrow">Kisah Kita</p>
+    <h2 class="section-title">Perjalanan Cinta Kita</h2>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="gallery-section">
+    <p class="section-eyebrow">Album Kenangan</p>
+    <h2 class="section-title">Momen-Momen Kita</h2>
+    <p class="gallery-hint">ketuk foto untuk lihat lebih besar</p>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- LETTER -->
+  <section class="letter-section" id="letter-section">
+    <p class="section-eyebrow">Sepucuk Surat</p>
+    <div class="letter reveal" id="letter">
+      <h2 class="letter__title" id="letterTitle"></h2>
+      <div class="letter__body" id="letterBody"></div>
+      <p class="letter__closing" id="letterClosing"></p>
+      <p class="letter__sign" id="letterSign"></p>
+    </div>
+  </section>
+
+  <!-- THINGS I LOVE 'BOUT KAMU (ditulis oleh pacar) -->
+  <section class="love-section" id="love-kamu-section">
+    <p class="section-eyebrow love-section__eyebrow"></p>
+    <h2 class="section-title love-section__title"></h2>
+    <div class="love-collage">
+      <div class="love-collage__accent love-collage__accent--top"></div>
+      <div class="love-collage__row">
+        <div class="love-collage__flank-wrap love-collage__flank-wrap--left">
+          <div class="love-collage__flank"></div>
+        </div>
+        <button class="love-collage__trigger" type="button" aria-label="Ketuk untuk buka">
+          <span class="love-collage__ring"></span>
+          <span class="love-collage__hint">Ketuk fotonya ✨</span>
+        </button>
+        <div class="love-collage__flank-wrap love-collage__flank-wrap--right">
+          <div class="love-collage__flank"></div>
+        </div>
+      </div>
+      <div class="love-collage__accent love-collage__accent--bottom"></div>
+    </div>
+  </section>
+
+  <!-- THINGS I LOVE 'BOUT PACAR (ditulis oleh kamu) -->
+  <section class="love-section" id="love-pacar-section">
+    <p class="section-eyebrow love-section__eyebrow"></p>
+    <h2 class="section-title love-section__title"></h2>
+    <div class="love-collage">
+      <div class="love-collage__accent love-collage__accent--top"></div>
+      <div class="love-collage__row">
+        <div class="love-collage__flank-wrap love-collage__flank-wrap--left">
+          <div class="love-collage__flank"></div>
+        </div>
+        <button class="love-collage__trigger" type="button" aria-label="Ketuk untuk buka">
+          <span class="love-collage__ring"></span>
+          <span class="love-collage__hint">Ketuk fotonya ✨</span>
+        </button>
+        <div class="love-collage__flank-wrap love-collage__flank-wrap--right">
+          <div class="love-collage__flank"></div>
+        </div>
+      </div>
+      <div class="love-collage__accent love-collage__accent--bottom"></div>
+    </div>
+  </section>
+
+  <!-- RAMALAN -->
+  <section class="fortune-section" id="fortune-section">
+    <p class="section-eyebrow section-eyebrow--light">Sebuah Ramalan</p>
+    <h2 class="section-title section-title--light">Penasaran Masa Depan Kita?</h2>
+    <p class="fortune-section__sub">Tarik satu kartu takdir, dan lihat sekilas hari-hari yang menunggu kita berdua.</p>
+    <button class="fortune-btn" id="fortuneBtn" type="button">
+      <span aria-hidden="true">🔮</span> Buka Ramalan Kami
+    </button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <p class="footer__msg" id="footerMsg">Terima kasih sudah menemaniku sejauh ini. Aku gak sabar buat cerita-cerita berikutnya, bareng kamu.</p>
+    <p class="footer__names" id="footerNames"></p>
+  </footer>
+</main>
+
+<!-- ============ MODAL (dipakai galeri & ramalan) ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Tampilan foto" hidden>
+  <div class="modal__backdrop" id="modalBackdrop"></div>
+  <div class="modal__card">
+    <button class="modal__close" id="modalClose" type="button" aria-label="Tutup">×</button>
+    <h3 class="modal__title" id="modalTitle"></h3>
+    <div class="modal__stage">
+      <button class="modal__nav modal__nav--prev" id="modalPrev" type="button" aria-label="Sebelumnya">‹</button>
+      <div class="modal__frame" id="modalFrame"></div>
+      <button class="modal__nav modal__nav--next" id="modalNext" type="button" aria-label="Berikutnya">›</button>
+    </div>
+    <p class="modal__caption" id="modalCaption"></p>
+    <div class="modal__dots" id="modalDots"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   KONFIGURASI — GANTI SEMUA BAGIAN INI DENGAN DATA KALIAN
+   Ini satu-satunya bagian yang perlu diedit untuk personalisasi.
+   ============================================================ */
+const CONFIG = {
+
+  namaKamu: "Kenzi",
+  namaPacar: "Vionisya",
+
+  // Format: "YYYY-MM-DDTHH:MM:SS" (jam boleh dikira-kira kalau lupa)
+  tanggalJadian: "2024-08-09T00:00:00",
+
+  // ---- Timeline kisah cinta. Tambah/hapus/edit bebas ----
+  timeline: [
+    {
+      tanggal: "12 mai 2024",
+      judul: "Pertama Kali Saling Sapa",
+      cerita: "Berawal dari satu sapaan kecil yang nggak pernah kita sangka bakal jadi awal dari cerita sepanjang ini.",
+      foto: "assets/images/timeline-1.jpeg"
+    },
+    {
+      tanggal: "25 Agustus 2024",
+      judul: "Kencan Pertama",
+      cerita: "Momen pertama kita menghabiskan waktu berdua, pertama kali bertemu, menggenggam tangan, dan merasakan hangatnya pelukan satu sama lain.",
+      foto: "assets/images/timeline-2.jpeg"
+    },
+    {
+      tanggal: "07 Oktober 2024",
+      judul: "Photobox Pertama",
+      cerita: "Momen dimana kita masih sama-sama malu dan canggung, tapi tetap mencoba mengabadikan kebersamaan kita untuk pertama kalinya.",
+      foto: "assets/images/timeline-3.jpg"
+    },
+    {
+      tanggal: "16 November 2024",
+      judul: "Liburan Pertama",
+      cerita: "Perjalanan pertama kita, dengan banyak cerita baru yang akhirnya jadi kenangan yang selalu seru buat diingat lagi.",
+      foto: "assets/images/timeline-4.jpeg"
+    },
+    {
+      tanggal: "09 Agustus 2025",
+      judul: "Melewati Tahun Pertama",
+      cerita: "Nggak kerasa satu tahun sudah kita lewati. Ada tawa, canda, marah-marahan, ngambek, dan banyak banget cerita yang berhasil kita lewati berdua. 💗",
+      foto: "assets/images/timeline-5.jpeg"
+    },
+    {
+      tanggal: "Sekarang",
+      judul: "Dan Kita Masih di Sini",
+      cerita: "Dua tahun berlalu, dan rasanya masih sama — bahkan lebih. Terima kasih sudah bertahan sejauh ini.",
+      foto: ""
+    }
+  ],
+
+  // ---- Galeri foto kenangan ----
+  gallery: [
+    { foto: "assets/images/galeri-1.jpeg", caption: "Momen favoritku" },
+    { foto: "assets/images/galeri-2.jpeg", caption: "Hari yang random tapi berkesan" },
+    { foto: "assets/images/galeri-3.jpeg", caption: "Konser Pertama" },
+    { foto: "assets/images/galeri-4.jpeg", caption: "Kencan kecil-kecilan" },
+    { foto: "assets/images/galeri-5.jpeg", caption: "Selalu suka foto yang ini" },
+    { foto: "assets/images/galeri-6.jpeg", caption: "Kenangan lainnya" }
+  ],
+
+  // ---- Surat cinta ----
+  surat: {
+    judul: "Untuk Vionisya",
+    isi:
+`Dua tahun ini rasanya cepat sekali, tapi setiap momennya masih kuingat dengan jelas.
+
+Terima kasih sudah menjadi rumah, tempat aku pulang di hari-hari yang capek maupun yang menyenangkan. Terima kasih untuk semua tawa, semua sabar, dan semua hal kecil yang mungkin nggak kamu sadari, tapi berarti banget buatku.
+
+Aku nggak tahu masa depan akan seperti apa, tapi aku tahu aku mau melewatinya bareng kamu.`,
+    penutup: "Selalu cinta,",
+    tandaTangan: "— Kenzi"
+  },
+
+  // ---- Ramalan masa depan (isi foto akan kamu edit & tambahkan sendiri) ----
+  ramalan: [
+    { foto: "assets/images/ramalan-1.png", caption: "Momen dimana kamu suda memiliki 5 oven." },
+    { foto: "assets/images/ramalan-2.jpg", caption: "Rumah kecil yang mungkin menjadi rumah kita." },
+    { foto: "assets/images/ramalan-3.jpg", caption: "Mungkin pertama kali kita ke disneyland." },
+    { foto: "assets/images/ramalan-4.jpg", caption: "Tetap jalan berdua, sekalipun langkahnya sudah pelan-pelan." }
+  ],
+
+  // ---- "Things I Love 'bout Kamu" — ditulis oleh namaPacar, tentang namaKamu ----
+  loveFotoKamu: "assets/images/love-kamu.jpeg",
+  loveAboutKamu: [
+    "His Smile",
+    "How He's Protective Over Me",
+    "How He Loves Me",
+    "He Never Fails to Make Me Laugh",
+    "He's Very Thoughtful",
+    "How Well He Gets Along With My Family",
+    "His Personality",
+    "The Way He Talks",
+    "He Makes Me Feel Loved",
+    "How He's Patient With Me",
+    "His Loyalty",
+    "His Laugh",
+    "How Handsome He Is",
+    "The Way He Dresses",
+    "How He Understands My Problems or Situations",
+    "Always Giving Me Random Compliments",
+    "How He Puts Up With My Attitude or Mood Swings",
+    "His Confidence",
+    "His Hair"
+  ],
+
+  // ---- "Things I Love 'bout Pacar" — ditulis oleh namaKamu, tentang namaPacar ----
+  loveFotoPacar: "assets/images/love-pacar.jpeg",
+  loveAboutPacar: [
+    "Her Smile",
+    "Her Laugh",
+    "How Beautiful She Is",
+    "The Food She Makes for Me",
+    "Her Cute Hair",
+    "The Way She Dresses",
+    "Her Loyalty",
+    "Her Personality",
+    "How She Loves Me",
+    "How Patient She Is With Me",
+    "How She Protects My Feelings When I'm Jealous",
+    "She Always Makes Me Feel Loved",
+    "How Spoiled She Gets Around Me",
+    "Her Childish Side",
+    "How She Understands Me",
+    "How She Babies Me",
+    "How She Makes Me Feel Like Home",
+    "She's Literally My Safe Place",
+    "The Way She Looks at Me",
+    "Her Warm Hugs",
+    "The Way She Holds My Hand",
+    "Her Random \"I Miss You\" Messages",
+    "How She Always Supports Me",
+    "How Much She Cares About Me"
+  ],
+
+  musik: "assets/music/lagu.mp3"
+};
+
+/* ============================================================
+   NAMA BULAN INDONESIA (dipakai untuk format tanggal)
+   ============================================================ */
+const BULAN_ID = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+function formatTanggalIndo(date){
+  return `${date.getDate()} ${BULAN_ID[date.getMonth()]} ${date.getFullYear()}`;
+}
+function pad2(n){ return String(n).padStart(2,"0"); }
+
+/* ============================================================
+   RENDER: HERO
+   ============================================================ */
+function renderHeroStatic(){
+  document.getElementById("heroNames").textContent = `${CONFIG.namaKamu} ✦ ${CONFIG.namaPacar}`;
+  const startDate = new Date(CONFIG.tanggalJadian);
+  document.getElementById("heroSince").textContent = `Bersama sejak ${formatTanggalIndo(startDate)}`;
+}
+
+function getDuration(start, now){
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+  let days = now.getDate() - start.getDate();
+  let hours = now.getHours() - start.getHours();
+  let minutes = now.getMinutes() - start.getMinutes();
+  let seconds = now.getSeconds() - start.getSeconds();
+
+  if (seconds < 0){ seconds += 60; minutes--; }
+  if (minutes < 0){ minutes += 60; hours--; }
+  if (hours < 0){ hours += 24; days--; }
+  if (days < 0){
+    const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += prevMonth.getDate();
+    months--;
+  }
+  if (months < 0){ months += 12; years--; }
+
+  const totalDays = Math.max(0, Math.floor((now - start) / 86400000));
+  return { years, months, days, hours, minutes, seconds, totalDays };
+}
+
+function tickCounter(){
+  const start = new Date(CONFIG.tanggalJadian);
+  const now = new Date();
+  const d = getDuration(start, now);
+
+  document.getElementById("cYears").textContent   = pad2(Math.max(0,d.years));
+  document.getElementById("cMonths").textContent  = pad2(Math.max(0,d.months));
+  document.getElementById("cDays").textContent    = pad2(Math.max(0,d.days));
+  document.getElementById("cHours").textContent   = pad2(d.hours);
+  document.getElementById("cMinutes").textContent = pad2(d.minutes);
+  document.getElementById("cSeconds").textContent = pad2(d.seconds);
+
+  document.getElementById("heroEyebrow").textContent =
+    d.years > 0 ? `Merayakan ${d.years} Tahun Bersama` : "Merayakan Perjalanan Kami";
+  document.getElementById("heroTotal").textContent =
+    `Total ${d.totalDays.toLocaleString("id-ID")} hari kita lalui bersama, dan akan terus bertambah.`;
+}
+
+let counterInterval;
+function startCounterLoop(){
+  tickCounter();
+  counterInterval = setInterval(tickCounter, 1000);
+}
+
+/* ============================================================
+   PHOTO FRAME HELPER (dengan fallback placeholder)
+   ============================================================ */
+function buildPhotoFrame(src, alt, placeholder){
+  const opts = Object.assign({ icon:"🤍", label:"Taruh fotomu di sini" }, placeholder || {});
+  const wrap = document.createElement("div");
+  wrap.className = "photo-frame";
+
+  const ph = document.createElement("div");
+  ph.className = "photo-placeholder";
+  ph.innerHTML = `<span class="photo-placeholder__icon">${opts.icon}</span><span class="photo-placeholder__label">${opts.label}</span>`;
+
+  if (src){
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = alt || "";
+    img.loading = "lazy";
+    img.addEventListener("error", () => {
+      img.remove();
+      ph.style.display = "flex";
+    });
+    wrap.appendChild(img);
+  } else {
+    ph.style.display = "flex";
+  }
+  wrap.appendChild(ph);
+  return wrap;
+}
+
+/* ============================================================
+   RENDER: TIMELINE
+   ============================================================ */
+function renderTimeline(){
+  const el = document.getElementById("timeline");
+  CONFIG.timeline.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "timeline__item reveal";
+
+    const content = document.createElement("div");
+    content.className = "timeline__content";
+    content.innerHTML = `
+      <p class="timeline__date">${item.tanggal}</p>
+      <h3 class="timeline__title">${item.judul}</h3>
+      <p class="timeline__text">${item.cerita}</p>
+    `;
+    if (item.foto){
+      const photoWrap = document.createElement("div");
+      photoWrap.className = "timeline__photo";
+      photoWrap.appendChild(buildPhotoFrame(item.foto, item.judul));
+      content.appendChild(photoWrap);
+    }
+
+    const dotCol = document.createElement("div");
+    dotCol.className = "timeline__dot-col";
+    dotCol.innerHTML = `<span class="timeline__dot" aria-hidden="true"></span>`;
+
+    row.append(content, dotCol);
+    el.appendChild(row);
+  });
+}
+
+/* ============================================================
+   RENDER: GALLERY
+   ============================================================ */
+const GALLERY_PLACEHOLDER = { icon:"📷", label:"foto kenangan" };
+
+function renderGallery(){
+  const el = document.getElementById("gallery");
+  CONFIG.gallery.forEach((item, i) => {
+    const fig = document.createElement("figure");
+    fig.className = "polaroid reveal";
+    fig.appendChild(buildPhotoFrame(item.foto, item.caption, GALLERY_PLACEHOLDER));
+    const cap = document.createElement("figcaption");
+    cap.textContent = item.caption || "";
+    fig.appendChild(cap);
+    fig.addEventListener("click", () => openModal(CONFIG.gallery, i, "Album Kenangan", GALLERY_PLACEHOLDER));
+    el.appendChild(fig);
+  });
+}
+
+/* ============================================================
+   RENDER: LETTER
+   ============================================================ */
+function renderLetter(){
+  document.getElementById("letterTitle").textContent = CONFIG.surat.judul;
+  const body = document.getElementById("letterBody");
+  CONFIG.surat.isi.split(/\n\s*\n/).forEach(par => {
+    const p = document.createElement("p");
+    p.textContent = par.trim();
+    body.appendChild(p);
+  });
+  document.getElementById("letterClosing").textContent = CONFIG.surat.penutup;
+  document.getElementById("letterSign").textContent = `${CONFIG.surat.tandaTangan}`;
+}
+
+/* ============================================================
+   RENDER: FOOTER
+   ============================================================ */
+function renderFooter(){
+  document.getElementById("footerNames").textContent =
+    `Dengan cinta, ${CONFIG.namaKamu} & ${CONFIG.namaPacar}`;
+}
+
+/* ============================================================
+   RENDER: THINGS I LOVE 'BOUT — foto di tengah, tag mengelilingi 4 sisi
+   ============================================================ */
+function renderLoveSection(sectionId, targetName, authorName, items, fotoSrc){
+  const root = document.getElementById(sectionId);
+  root.querySelector(".love-section__eyebrow").textContent = `Ditulis oleh ${authorName}`;
+  root.querySelector(".love-section__title").textContent = `Things I Love 'bout ${targetName}!`;
+
+  const ring = root.querySelector(".love-collage__ring");
+  ring.appendChild(buildPhotoFrame(fotoSrc, targetName, { icon:"📸", label:"Foto kalian" }));
+
+  const topEl    = root.querySelector(".love-collage__accent--top");
+  const bottomEl = root.querySelector(".love-collage__accent--bottom");
+  const leftEl   = root.querySelector(".love-collage__flank-wrap--left .love-collage__flank");
+  const rightEl  = root.querySelector(".love-collage__flank-wrap--right .love-collage__flank");
+
+  // Kalau datanya cukup banyak, sisain 2 tag buat nampang di atas & 2 di bawah foto
+  const useAccents  = items.length >= 8;
+  const topItems    = useAccents ? items.slice(0, 2) : [];
+  const bottomItems = useAccents ? items.slice(2, 4) : [];
+  const flankItems  = useAccents ? items.slice(4) : items.slice();
+
+  const makeTag = (text, delayIndex) => {
+    const span = document.createElement("span");
+    span.className = "love-tag";
+    span.textContent = text;
+    span.style.setProperty("--delay", Math.min(delayIndex * 0.035, 0.6) + "s");
+    return span;
+  };
+
+  topItems.forEach((text, i) => topEl.appendChild(makeTag(text, i)));
+  flankItems.forEach((text, i) => {
+    const tag = makeTag(text, i + topItems.length);
+    (i % 2 === 0 ? leftEl : rightEl).appendChild(tag);
+  });
+  bottomItems.forEach((text, i) => bottomEl.appendChild(makeTag(text, i + topItems.length + flankItems.length)));
+
+  const collage = root.querySelector(".love-collage");
+  root.querySelector(".love-collage__trigger").addEventListener("click", () => {
+    collage.classList.toggle("is-open");
+  });
+}
+
+/* ============================================================
+   MODAL / CAROUSEL (dipakai galeri & ramalan)
+   ============================================================ */
+const modal        = document.getElementById("modal");
+const modalBackdrop= document.getElementById("modalBackdrop");
+const modalClose   = document.getElementById("modalClose");
+const modalTitleEl = document.getElementById("modalTitle");
+const modalFrame   = document.getElementById("modalFrame");
+const modalCaption = document.getElementById("modalCaption");
+const modalDots    = document.getElementById("modalDots");
+const modalPrev    = document.getElementById("modalPrev");
+const modalNext    = document.getElementById("modalNext");
+
+let modalItems = [];
+let modalIndex = 0;
+let modalPlaceholder = null;
+
+function openModal(items, startIndex, title, placeholder){
+  modalItems = items;
+  modalIndex = startIndex;
+  modalPlaceholder = placeholder || null;
+  modalTitleEl.textContent = title;
+  renderModalFrame();
+  modal.hidden = false;
+  requestAnimationFrame(() => modal.classList.add("modal--visible"));
+  document.body.style.overflow = "hidden";
+}
+function closeModal(){
+  modal.classList.remove("modal--visible");
+  document.body.style.overflow = "";
+  setTimeout(() => { modal.hidden = true; }, 350);
+}
+function renderModalFrame(){
+  const item = modalItems[modalIndex];
+  modalFrame.innerHTML = "";
+  modalFrame.appendChild(buildPhotoFrame(item.foto, item.caption, modalPlaceholder));
+  modalCaption.textContent = item.caption || "";
+  renderDots();
+}
+function renderDots(){
+  modalDots.innerHTML = "";
+  modalItems.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.className = "modal__dot" + (i === modalIndex ? " is-active" : "");
+    dot.addEventListener("click", () => { modalIndex = i; renderModalFrame(); });
+    modalDots.appendChild(dot);
+  });
+}
+function modalGoNext(){ modalIndex = (modalIndex + 1) % modalItems.length; renderModalFrame(); }
+function modalGoPrev(){ modalIndex = (modalIndex - 1 + modalItems.length) % modalItems.length; renderModalFrame(); }
+
+modalNext.addEventListener("click", modalGoNext);
+modalPrev.addEventListener("click", modalGoPrev);
+modalClose.addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", (e) => {
+  if (modal.hidden) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowRight") modalGoNext();
+  if (e.key === "ArrowLeft") modalGoPrev();
+});
+
+// swipe gesture (mobile)
+let touchStartX = 0;
+modalFrame.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive:true });
+modalFrame.addEventListener("touchend", (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 40){ dx > 0 ? modalGoPrev() : modalGoNext(); }
+}, { passive:true });
+
+document.getElementById("fortuneBtn").addEventListener("click", () => {
+  openModal(CONFIG.ramalan, 0, "🔮 Ramalan Kita");
+});
+
+/* ============================================================
+   FLOATING HEARTS
+   ============================================================ */
+const heartsContainer = document.getElementById("floatingHearts");
+const HEART_EMOJI = ["💗","🤍","🌸","✨","💮"];
+let heartsInterval;
+
+function spawnHeart(){
+  const el = document.createElement("span");
+  el.className = "floating-heart";
+  el.textContent = HEART_EMOJI[Math.floor(Math.random() * HEART_EMOJI.length)];
+  el.style.left = Math.random() * 96 + "vw";
+  el.style.fontSize = (14 + Math.random() * 16) + "px";
+  el.style.setProperty("--duration", (7 + Math.random() * 5) + "s");
+  el.style.setProperty("--drift", ((Math.random() * 2 - 1) * 70) + "px");
+  el.addEventListener("animationend", () => el.remove());
+  heartsContainer.appendChild(el);
+}
+function startHeartsLoop(){
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  spawnHeart();
+  heartsInterval = setInterval(spawnHeart, 850);
+}
+
+/* ============================================================
+   MUSIK
+   ============================================================ */
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+function updateMusicIcon(playing){
+  musicToggle.classList.toggle("is-playing", playing);
+  musicToggle.setAttribute("aria-label", playing ? "Jeda musik" : "Putar musik");
+}
+function tryPlayMusic(){
+  bgMusic.volume = 0.45;
+  bgMusic.play().then(() => updateMusicIcon(true)).catch(() => updateMusicIcon(false));
+}
+musicToggle.addEventListener("click", () => {
+  if (bgMusic.paused){ bgMusic.play().then(()=>updateMusicIcon(true)).catch(()=>{}); }
+  else { bgMusic.pause(); updateMusicIcon(false); }
+});
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+function setupScrollReveal(){
+  const items = document.querySelectorAll(".reveal");
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add("is-visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.15 });
+  items.forEach(i => obs.observe(i));
+}
+
+/* ============================================================
+   GATE / INIT
+   ============================================================ */
+function openGate(){
+  const gate = document.getElementById("gate");
+  const main = document.getElementById("main");
+  gate.classList.add("gate--leaving");
+  main.hidden = false;
+  requestAnimationFrame(() => requestAnimationFrame(() => main.classList.add("main--visible")));
+  startCounterLoop();
+  startHeartsLoop();
+  tryPlayMusic();
+  setTimeout(() => gate.remove(), 950);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderHeroStatic();
+  renderTimeline();
+  renderGallery();
+  renderLetter();
+  renderLoveSection("love-kamu-section", CONFIG.namaKamu, CONFIG.namaPacar, CONFIG.loveAboutKamu, CONFIG.loveFotoKamu);
+  renderLoveSection("love-pacar-section", CONFIG.namaPacar, CONFIG.namaKamu, CONFIG.loveAboutPacar, CONFIG.loveFotoPacar);
+  renderFooter();
+  setupScrollReveal();
+  document.getElementById("gateBtn").addEventListener("click", openGate, { once:true });
+});
+</script>
+</body>
+</html>
