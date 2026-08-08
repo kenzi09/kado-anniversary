@@ -275,7 +275,7 @@ section, footer{ padding:5rem 1.5rem; position:relative; }
 /* ============================================================
    7. GALLERY (POLAROID + WASHI TAPE)
    ============================================================ */
-.gallery-section{ background:var(--blush); }
+.gallery-section{ background:linear-gradient(180deg, var(--cream), var(--blush) 150px); }
 #gallery-section .section-title{ margin-bottom:.7rem; }
 .gallery-hint{
   text-align:center; font-size:.9rem; color:var(--rosewood-soft);
@@ -343,7 +343,7 @@ section, footer{ padding:5rem 1.5rem; position:relative; }
 /* ============================================================
    9. SURAT CINTA
    ============================================================ */
-.letter-section{ background:var(--cream); }
+.letter-section{ background:linear-gradient(180deg, var(--blush), var(--cream) 150px); }
 .letter{
   max-width:640px; margin:0 auto; background:var(--paper);
   border-radius:var(--radius-lg); box-shadow:var(--shadow-soft);
@@ -370,8 +370,7 @@ section, footer{ padding:5rem 1.5rem; position:relative; }
 /* ============================================================
    9B. THINGS I LOVE 'BOUT — tag mengelilingi foto (atas/bawah/kiri/kanan)
    ============================================================ */
-.love-section{ background:var(--cream); }
-#love-pacar-section{ background:var(--blush); }
+.love-section{ background:var(--blush); }
 .love-section .section-title{ margin-bottom:.5rem; }
 .love-collage{ max-width:1080px; margin:0 auto; }
 
@@ -655,17 +654,6 @@ section, footer{ padding:5rem 1.5rem; position:relative; }
     <div class="gallery" id="gallery"></div>
   </section>
 
-  <!-- LETTER -->
-  <section class="letter-section" id="letter-section">
-    <p class="section-eyebrow">Sepucuk Surat</p>
-    <div class="letter reveal" id="letter">
-      <h2 class="letter__title" id="letterTitle"></h2>
-      <div class="letter__body" id="letterBody"></div>
-      <p class="letter__closing" id="letterClosing"></p>
-      <p class="letter__sign" id="letterSign"></p>
-    </div>
-  </section>
-
   <!-- THINGS I LOVE 'BOUT KAMU (ditulis oleh pacar) -->
   <section class="love-section" id="love-kamu-section">
     <p class="section-eyebrow love-section__eyebrow"></p>
@@ -707,6 +695,17 @@ section, footer{ padding:5rem 1.5rem; position:relative; }
         </div>
       </div>
       <div class="love-collage__accent love-collage__accent--bottom"></div>
+    </div>
+  </section>
+
+  <!-- LETTER -->
+  <section class="letter-section" id="letter-section">
+    <p class="section-eyebrow">Sepucuk Surat</p>
+    <div class="letter reveal" id="letter">
+      <h2 class="letter__title" id="letterTitle"></h2>
+      <div class="letter__body" id="letterBody"></div>
+      <p class="letter__closing" id="letterClosing"></p>
+      <p class="letter__sign" id="letterSign"></p>
     </div>
   </section>
 
